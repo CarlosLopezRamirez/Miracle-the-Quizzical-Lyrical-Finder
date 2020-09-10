@@ -50,4 +50,4 @@ async def on_message(message):
     else:
         await respond_to_initial_mention(message)
 
-client.run('NzUwMzk2NjE5NDMzOTY3NjU2.X057Tw.uxZzEo54J-ZQwuDeRHK0rTJ2Lfo')
+client.run(#YOUR BOT TOKEN HERE)
