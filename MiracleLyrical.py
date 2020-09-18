@@ -10,6 +10,7 @@ miracle_mentioned = False
 
 client = discord.Client()
 
+# Environment Variables
 discord_token = os.environ.get('DISCORD_TOKEN')
 genius_headers = {'Authorization': 'BEARER ' + str(os.environ.get('GENIUS_TOKEN'))}
 
@@ -175,6 +176,19 @@ async def lyrical_makeup(lyrics_list, message):
         else:
             lyric_dict[lyric] = 1
 
+    temp_keys = []
+    temp_largest_value = 0
+
+    for key in lyric_dict:
+        if lyric_dict[key] > temp_largest_value:
+            temp_keys.clear()
+            temp_keys.append(key)
+            temp_largest_value = lyric_dict[key]
+        elif lyric_dict[key] == temp_largest_value:
+            temp_keys.append(key)
+    
+    print(temp_keys)
+    print(temp_largest_value)
     print(lyric_dict)
 
 @client.event
