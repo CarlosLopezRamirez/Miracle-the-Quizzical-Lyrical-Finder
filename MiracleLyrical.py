@@ -26,7 +26,7 @@ async def respond_to_initial_mention(message):
 
         miracle_mentioned = True 
 
-        await channel.send('Music Man, at your service!')
+        await channel.send('Music Man, at your service! Give me something to look up!')
 
         def check(m):
             return m.author != client.user and m.channel == message.channel
