@@ -28,12 +28,15 @@ This bot has not yet been released publicly to put into every server. However, i
 
 ### Packages Needed
 ***Discord.py***  
+
 `python3 -m pip install -U discord.py`
 
 ***Requests***  
+
 `python3 -m pip install requests`
 
 ***Beautiful Soup***  
+
 `python3 -m pip install beautifulsoup4`
 
 ### Environment Variables and API Tokens  
@@ -83,6 +86,7 @@ Genius will ask you to register, and then create an Application with a name and 
 ![Client Access Token](/images/geniusaccess.png)
 
 ***Genius Environment Variable***  
+
 Again, we will need to make an environment variable. Again, navigate to either your `bash_profile` or `.bashrc` file, and at the bottom, add:  
 
 `export GENIUS_TOKEN=ACCESS_TOKEN_THAT_YOU_COPIED`
