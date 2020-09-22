@@ -12,3 +12,4 @@ Your message can be anything, from a random word, a genre, or an artist that you
 
 If you say "Yes" to any of the results, Miracle will then proceed to search for the top music video result when looking up your chosen song using the [IMVDb API](https://imvdb.com/developers/api). Note that not every song has a music video made for it. Miracle will send you the top result that appears when looking up your chosen song. If a music video has been made for your chosen song, then Miracle will likely send you the link to this music video. However, if no music video was ever made for your chosen song, you will likely be given a music video from the same artist of the song you chose. 
 
+![Music Video Results](/images/MiracleMusicVideo.png)
