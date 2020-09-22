@@ -14,6 +14,7 @@ client = discord.Client()
 discord_token = os.environ.get('DISCORD_TOKEN')
 genius_headers = {'Authorization': 'BEARER ' + str(os.environ.get('GENIUS_TOKEN'))}
 
+# Checks if Miracle is mentioned, and proceeds accordingly if so
 @client.event
 async def respond_to_initial_mention(message):
 
@@ -39,7 +40,8 @@ async def respond_to_initial_mention(message):
             await channel.send('Looking for "' + msg.content + '"')
             await itunes_query(msg.content, msg)
 
-
+# Uses the ITunes Search API to find top 200 results that correspond
+# to the message sent by the user
 @client.event
 async def itunes_query(query, message):
 
@@ -49,6 +51,8 @@ async def itunes_query(query, message):
 
     await question_user(query_results['results'], message)
 
+# Cycles through the top 200 results 1-by-1, sending them to the user
+# and asking if that item is the item the user would like to proceed with
 @client.event
 async def question_user(results, message):
 
@@ -88,6 +92,9 @@ async def question_user(results, message):
             miracle_mentioned = False
             break
 
+# After the user has chosen which song they would like to proceed with,
+# Miracle finds the top music video that corresponds to querying that song
+# with the IMVdb API
 @client.event
 async def music_vid(trackName, artistName, message):
 
@@ -107,6 +114,9 @@ async def music_vid(trackName, artistName, message):
     await lyrics(trackName, artistName, message)
     miracle_mentioned = False
 
+# Using the song chosen in question_user(), Miracle uses the Genius API to find the 
+# url path to Genius's webpage for said song. Once the url path is found, Miracle 
+# scrapes the HTML lyrics tag for the content of the lyrics and sends them to the user
 @client.event
 async def lyrics(trackName, artistName, message):
 
@@ -164,6 +174,7 @@ async def lyrics(trackName, artistName, message):
         miracle_mentioned = False
         await lyrical_makeup(lyrics_list, message)
 
+# Miracle then analyzes the lyrical makeup of the song
 @client.event
 async def lyrical_makeup(lyrics_list, message):
 
@@ -176,21 +187,14 @@ async def lyrical_makeup(lyrics_list, message):
         else:
             lyric_dict[lyric] = 1
 
-    temp_keys = []
-    temp_largest_value = 0
+    sort_lyrics = sorted(lyric_dict.items(), key=lambda x: x[1], reverse=True)
 
-    for key in lyric_dict:
-        if lyric_dict[key] > temp_largest_value:
-            temp_keys.clear()
-            temp_keys.append(key)
-            temp_largest_value = lyric_dict[key]
-        elif lyric_dict[key] == temp_largest_value:
-            temp_keys.append(key)
-    
-    print(temp_keys)
-    print(temp_largest_value)
-    print(lyric_dict)
+    await channel.send("The following is how many times each lyric in the song appears:")
 
+    for lyric_tuple in sort_lyrics:
+        await channel.send("Lyric: " + lyric_tuple[0] + "\tOccurences: " + str(lyric_tuple[1]))
+
+# Whenever a message is sent
 @client.event
 async def on_message(message):
 
@@ -199,4 +203,5 @@ async def on_message(message):
     else:
         await respond_to_initial_mention(message)
 
+# Runs Miracle
 client.run(discord_token)
