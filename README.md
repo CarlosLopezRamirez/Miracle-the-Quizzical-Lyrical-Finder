@@ -69,6 +69,24 @@ Select whatever server you want and you are done with this section!
 ***Discord Environment Variable***  
 Like said before, the secret token should be kept to yourself and never posted. It is for this reason that in the code, we import `os` and use it to access our system's environment variables. To be able to do this, we must set the Discord secret client we were given in an earlier step. To do this, navigate to your `.bash_profile` or `.bashrc` file in your home directory and open it. At the very bottom, add the following line:  
 
-`export DISCORD_TOKEN={put your secret Discord Client here}`
+`export DISCORD_TOKEN=YOUR_ID_THAT_YOU_COPIED_FROM_BEFORE`
 
 Now, when running the bot, it will work as it is using the correct secret client ID. 
+
+***Genius API***  
+The process for using Genius's API is similar to that of Discord's. Navigate to the [Genius API Website](https://docs.genius.com/). From there, click the tab that says "Manage Clients" on the side.
+
+![Genius API Menu](/images/GeniusMenu.png)
+
+Genius will ask you to register, and then create an Application with a name and website URL. The URL does not have to be anything specific, I used this GitHub link, but it can be anything. For the App name, I put MiracleLyrical. Once you are done registering your App, you will need to access your authorization token. On the "API Clients" page, at the bottom, you will see a blue text that says "Generate Access Token." Click on this and copy it.
+
+![Client Access Token](/images/geniusaccess.png)
+
+***Genius Environment Variable***
+Again, we will need to make an environment variable. Again, navigate to either your `bash_profile` or `.bashrc` file, and at the bottom, add:  
+
+`export GENIUS_TOKEN=ACCESS_TOKEN_THAT_YOU_COPIED`
+
+## You're done!
+
+You have finished setting up Miracle the Quizzical Lyrical Finder! Simply run the attached Python file and Miracle will be up and ready to help in whatever server you sent him to!
