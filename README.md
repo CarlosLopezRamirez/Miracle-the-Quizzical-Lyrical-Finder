@@ -13,3 +13,62 @@ Your message can be anything, from a random word, a genre, or an artist that you
 If you say "Yes" to any of the results, Miracle will then proceed to search for the top music video result when looking up your chosen song using the [IMVDb API](https://imvdb.com/developers/api). Note that not every song has a music video made for it. Miracle will send you the top result that appears when looking up your chosen song. If a music video has been made for your chosen song, then Miracle will likely send you the link to this music video. However, if no music video was ever made for your chosen song, you will likely be given a music video from the same artist of the song you chose. 
 
 ![Music Video Results](/images/MiracleMusicVideo.png)
+
+After having sent the top IMVDb result, Miracle will use the [Genius API](https://docs.genius.com/) to look up your chosen song on their website. The Genius API will return a large amount of information pertaining to your song, but what matters to Miracle is the URL path to the Genius page for the song you chose. Using the URL path from the results, Miracle will get the page, and using [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), it will parse through the page's HTML code and find the tag named "Lyrics," a common tag that Genius uses on all its pages to denote where in the HTML the lyrical content for the song is. Miracle will then send you over the Discord channel the content found within the "Lyrics" tag. 
+
+![Miracle Presents Some Lyrics](/images/MiracleLyrics.png)
+
+After this, Miracle will send you over the Discord channel an interesting part of the song that we often don't think about: how many times the artist actually says each word in the song, as seen below
+
+![Miracle Present Lyric Occurences](/images/LyricOccurences.png)
+
+
+## How to set up Miracle
+This bot has not yet been released publicly to put into every server. However, in this section, I will explain how to set up Miracle on your computer so you can use him in his current state!
+
+### Packages Needed
+***Discord.py***  
+`python3 -m pip install -U discord.py`
+
+***Requests***
+`python3 -m pip install requests`
+
+***Beautiful Soup***
+`python3 -m pip install beautifulsoup4`
+
+### Environment Variables and API Tokens  
+To have a Discord bot and use the Genius API, you will need to register your bot and sign up at Genius. Below is a detailed explanation for how to do both  
+
+***Discord***  
+Head over to the [Discord Developer Page](https://discord.com/login?redirect_to=%2Fdevelopers%2Fapplications) and log in using your Discrod account (or create an account if you do not have one yet). You will find yourself in the Applications portal. In the top right click on the button that says "New Application" 
+
+![ApplicationPortal](/images/ApplicationPortal.png)
+
+Name your application whatever you want. I, of course, named this application "Miracle the Quizzical Lyrical Finder." Once in, you will be in your Application's page. On the menu on the side, click on the tab that says "Bot"
+
+![Discord App Menu](/images/DiscordMenu.png)
+
+Click on the button that says "Add Bot," and give it a name. My bot's name was "Miracle." At the bottom, you will find what permissions your bot will have. 
+
+![Bot Permissions](/images/botpermissions.png)
+
+These are all options for what your bot can do. I simply clicked "Administrator." Second, if you go to your Application's "General Information" you will see a blue text that says "Click to Reveal." This is the client token needed to run your bot. Reveal it, copy it, and do not post it anywhere, this is meant to be a secret token. 
+
+![Secret Token](/images/secrettoken.png)
+
+Head over to the "OAuth2" tab, and at the bottom, under "Scopes", click "bot." "Bot Permissions" will appear underneath, click on "Administrator." When you have done this, click "Copy" next to the link that appeared in the "Scopes" section.
+
+![Bot Scopes](/images/botscopes.png)
+
+Open a new tab in your browser and paste the link you copied. Discord will prompt you to add your bot to whatever server you want to add this bot to.
+
+![Server Prompt](/images/serverprompt.png)
+
+Select whatever server you want and you are done with this section!
+
+***Discord Environment Variable***  
+Like said before, the secret token should be kept to yourself and never posted. It is for this reason that in the code, we import `os` and use it to access our system's environment variables. To be able to do this, we must set the Discord secret client we were given in an earlier step. To do this, navigate to your `.bash_profile` or `.bashrc` file in your home directory and open it. At the very bottom, add the following line:  
+
+`export DISCORD_TOKEN={put your secret Discord Client here}`
+
+Now, when running the bot, it will work as it is using the correct secret client ID. 
